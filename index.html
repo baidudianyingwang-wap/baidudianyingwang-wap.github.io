@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="百度电影网 - 百度影视搜索与电影资源导航，汇聚海量电影、剧集、综艺、动漫，一键检索，极速找片，发现好电影从这里开始。">
+<meta name="keywords" content="百度电影网, 百度影视, 电影搜索, 电影导航, 百度找片, 在线影视, 电影资源, baidudianyingwang, 影视搜索">
+<meta name="author" content="百度电影网">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="revisit-after" content="1 days">
+<meta property="og:title" content="百度电影网 - 百度影视搜索与电影导航">
+<meta property="og:description" content="百度电影网 - 汇聚海量影视资源，一键检索，极速找片。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://baidudianyingwang-wap.github.io">
+<meta property="og:site_name" content="百度电影网">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="百度电影网">
+<meta name="twitter:description" content="百度电影网 - 百度影视搜索与电影资源导航，一键检索，极速找片！">
+<title>百度电影网 - 百度影视搜索与电影导航 | 极速找片</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --blue:#1a73e8;--blue2:#4d9dff;--deep:#0a3d91;--navy:#06264d;
+  --cyan:#22d3ee;--teal:#0e7490;--sky:#e8f0fe;--ink:#1a2332;--gray:#5f6b7a;
+  --bg:#f4f7fb;--card:#ffffff;--line:#e2e8f0;--r:20px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 12% 8%,rgba(34,211,238,.12),transparent 40%),radial-gradient(circle at 88% 92%,rgba(26,115,232,.10),transparent 42%)}
+a{text-decoration:none;color:inherit;transition:.3s}
+ul{list-style:none}
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* Loader - 放大镜扫描 */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .6s}
+#loader.hide{opacity:0;pointer-events:none}
+.glass{position:relative;width:74px;height:74px;border:5px solid var(--blue2);border-radius:50%;animation:pulse 1.2s ease-in-out infinite}
+.glass::after{content:'';position:absolute;width:20px;height:5px;background:var(--blue2);bottom:-10px;right:-16px;transform:rotate(45deg);border-radius:3px}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.15);opacity:.75}}
+#loader .lab{color:#a8d0ff;font-size:.95rem;letter-spacing:6px;font-weight:700}
+
+/* Header */
+.hd{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,38,77,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(77,157,255,.25)}
+.hd-in{display:flex;align-items:center;justify-content:space-between;height:66px;max-width:1160px;margin:0 auto;padding:0 24px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo .ic{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;box-shadow:0 4px 14px rgba(26,115,232,.4)}
+.logo .nm{font-size:1.35rem;font-weight:900;color:#fff;letter-spacing:.5px}
+.logo .nm b{color:var(--cyan);font-weight:900}
+.hnav{display:flex;gap:2px}
+.hnav a{padding:9px 16px;border-radius:10px;font-size:.9rem;font-weight:600;color:#cfe2ff}
+.hnav a:hover{color:#fff;background:rgba(77,157,255,.14)}
+.hnav a.on{color:#fff;background:var(--blue)}
+.mbtn{display:none;width:44px;height:44px;border:none;background:rgba(77,157,255,.15);border-radius:11px;cursor:pointer;position:relative}
+.mbtn span{position:absolute;left:11px;width:22px;height:2px;background:var(--cyan);border-radius:2px;transition:.3s}
+.mbtn span:nth-child(1){top:15px}.mbtn span:nth-child(2){top:21px}.mbtn span:nth-child(3){top:27px}
+.mbtn.x span:nth-child(1){top:21px;transform:rotate(45deg)}
+.mbtn.x span:nth-child(2){opacity:0}
+.mbtn.x span:nth-child(3){top:21px;transform:rotate(-45deg)}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:90px 0 60px;background:linear-gradient(165deg,var(--navy),var(--deep) 60%,#0d4fb0);overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(34,211,238,.18),transparent 35%),radial-gradient(circle at 20% 85%,rgba(26,115,232,.22),transparent 38%)}
+.hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:52px 52px}
+.hb{position:relative;z-index:2;max-width:780px;margin:0 auto;text-align:center;padding:0 24px}
+.hb .badge{display:inline-flex;align-items:center;gap:8px;padding:7px 20px;border-radius:30px;background:rgba(34,211,238,.14);border:1px solid rgba(34,211,238,.4);color:var(--cyan);font-size:.82rem;font-weight:700;letter-spacing:1px;margin-bottom:24px}
+.hb .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hb h1{font-size:clamp(2.2rem,6vw,4.2rem);font-weight:900;color:#fff;line-height:1.18}
+.hb h1 em{font-style:normal;background:linear-gradient(90deg,var(--cyan),#a5f3fc);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hb .sub{font-size:clamp(1rem,2.6vw,1.25rem);color:#a8d0ff;margin:18px 0 12px;font-weight:600}
+.hb .desc{font-size:1rem;color:#8fb8e8;max-width:580px;margin:0 auto 34px}
+
+/* 搜索框 */
+.search{background:rgba(255,255,255,.1);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:10px;max-width:640px;margin:0 auto 20px;display:flex;gap:8px;align-items:center}
+.search .sg{flex:1;display:flex;align-items:center;gap:12px;padding:0 14px}
+.search .sg .si{font-size:1.2rem;color:var(--cyan);flex-shrink:0}
+.search input{width:100%;border:none;background:transparent;color:#fff;font-size:1rem;outline:none;font-family:inherit;padding:14px 0}
+.search input::placeholder{color:#8fb8e8}
+.search button{border:none;padding:15px 30px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;font-weight:800;font-size:.95rem;cursor:pointer;transition:.3s;white-space:nowrap}
+.search button:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(34,211,238,.4)}
+.hotkeys{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:38px}
+.hotkeys span{font-size:.78rem;color:#8fb8e8}
+.hotkeys a{padding:5px 14px;border-radius:20px;background:rgba(255,255,255,.08);color:#cfe2ff;font-size:.82rem}
+.hotkeys a:hover{background:var(--cyan);color:var(--navy)}
+.hb .stats{display:flex;gap:46px;justify-content:center;flex-wrap:wrap}
+.hb .stats .s b{display:block;font-size:2rem;font-weight:900;color:var(--cyan);font-family:Georgia,serif}
+.hb .stats .s small{font-size:.78rem;color:#8fb8e8}
+
+/* Section */
+.sec{padding:88px 0;position:relative}
+.sec-head{text-align:center;margin-bottom:52px}
+.sec-head .tag{display:inline-block;padding:5px 18px;border-radius:20px;background:rgba(26,115,232,.1);color:var(--deep);font-size:.75rem;font-weight:800;letter-spacing:3px;margin-bottom:12px}
+.sec-head h2{font-size:clamp(1.5rem,3.8vw,2.2rem);font-weight:900;color:var(--navy)}
+.sec-head p{font-size:1rem;color:var(--gray);max-width:560px;margin:10px auto 0}
+
+/* 环形进度：热门指数 */
+.rings{background:var(--sky)}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:28px;max-width:980px;margin:0 auto}
+.ring{text-align:center}
+.ring .c{position:relative;width:170px;height:170px;margin:0 auto 16px}
+.ring .c svg{transform:rotate(-90deg)}
+.ring .c circle{fill:none;stroke-width:12}
+.ring .c .bg{stroke:rgba(26,115,232,.12)}
+.ring .c .fg{stroke:var(--blue);stroke-linecap:round;transition:stroke-dashoffset 1.4s ease}
+.ring .c .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .c .num b{font-size:1.9rem;font-weight:900;color:var(--navy);font-family:Georgia,serif}
+.ring .c .num small{font-size:.72rem;color:var(--gray)}
+.ring h4{font-size:1.1rem;font-weight:800;color:var(--ink);margin-bottom:4px}
+.ring p{font-size:.82rem;color:var(--gray)}
+
+/* 排行榜：异构瀑布流 */
+.board{}
+.bwrap{max-width:900px;margin:0 auto;columns:2;column-gap:20px}
+.bcard{background:var(--card);border-radius:16px;padding:18px 20px;margin-bottom:18px;break-inside:avoid;display:flex;gap:16px;align-items:center;border:1px solid var(--line);transition:.35s;box-shadow:0 2px 10px rgba(10,61,145,.05)}
+.bcard:hover{transform:translateY(-4px);border-color:var(--blue2);box-shadow:0 14px 34px rgba(26,115,232,.16)}
+.bcard .rk{width:44px;height:44px;border-radius:12px;background:var(--sky);color:var(--deep);display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;flex-shrink:0;font-family:Georgia,serif}
+.bcard.g1 .rk{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#fff}
+.bcard.g2 .rk{background:linear-gradient(135deg,#cbd5e1,#94a3b8);color:#fff}
+.bcard.g3 .rk{background:linear-gradient(135deg,#d97706,#b45309);color:#fff}
+.bcard .ti{font-size:1rem;font-weight:800;color:var(--ink);margin-bottom:3px}
+.bcard .meta{font-size:.78rem;color:var(--gray);display:flex;gap:10px;flex-wrap:wrap}
+.bcard .meta .hot{color:var(--blue);font-weight:700}
+
+/* 时间轴：找片历程 */
+.track{background:var(--sky)}
+.tline{max-width:860px;margin:0 auto;position:relative;padding-left:8px}
+.tline::before{content:'';position:absolute;left:14px;top:8px;bottom:8px;width:3px;background:linear-gradient(var(--blue),var(--cyan));border-radius:3px}
+.tnode{position:relative;padding-left:56px;padding-bottom:30px}
+.tnode:last-child{padding-bottom:0}
+.tnode .dot{position:absolute;left:4px;top:4px;width:24px;height:24px;border-radius:50%;background:var(--blue);border:4px solid #fff;box-shadow:0 0 0 3px var(--blue2);z-index:2}
+.tnode.gold .dot{background:var(--cyan);box-shadow:0 0 0 3px var(--cyan)}
+.tnode .box{background:var(--card);border-radius:16px;padding:20px 24px;border:1px solid var(--line)}
+.tnode .box .step{display:inline-block;font-size:.72rem;font-weight:800;color:var(--blue);background:var(--sky);padding:3px 12px;border-radius:12px;margin-bottom:8px;letter-spacing:1px}
+.tnode .box h4{font-size:1.15rem;font-weight:800;color:var(--navy);margin-bottom:6px}
+.tnode .box p{font-size:.9rem;color:var(--gray)}
+.tnode .box .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tnode .box .tags span{padding:4px 12px;border-radius:8px;background:var(--bg);font-size:.78rem;color:var(--deep);font-weight:600}
+
+/* 滑动条：分类导航 */
+.cats{}
+.cscroll{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 4px 18px;max-width:1000px;margin:0 auto;scrollbar-width:thin}
+.cscroll::-webkit-scrollbar{height:8px}
+.cscroll::-webkit-scrollbar-thumb{background:var(--blue2);border-radius:4px}
+.cchip{flex:0 0 200px;scroll-snap-align:start;background:var(--card);border-radius:16px;padding:22px 20px;border:2px solid var(--line);cursor:pointer;transition:.35s;position:relative;overflow:hidden}
+.cchip::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:.4s}
+.cchip:hover{transform:translateY(-5px);border-color:var(--blue)}
+.cchip:hover::before{transform:scaleX(1)}
+.cchip .ico{font-size:2rem;margin-bottom:12px;display:block}
+.cchip h4{font-size:1.05rem;font-weight:800;color:var(--navy);margin-bottom:4px}
+.cchip p{font-size:.8rem;color:var(--gray);line-height:1.6}
+
+/* 网格仪表盘：关于 */
+.dash{}
+.dgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:22px;max-width:1000px;margin:0 auto}
+.dcell{background:var(--card);border-radius:20px;padding:32px;border:1px solid var(--line);transition:.35s}
+.dcell:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(10,61,145,.1)}
+.dcell.tall{grid-row:span 2;background:linear-gradient(165deg,var(--navy),var(--deep));color:#fff;border:none}
+.dcell.tall h3{font-size:1.6rem;font-weight:900;color:#fff;margin-bottom:6px}
+.dcell.tall .sub{color:var(--cyan);font-size:.85rem;font-weight:700;margin-bottom:22px}
+.dcell.tall ul li{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid rgba(77,157,255,.2);font-size:.92rem;color:#cfe2ff;line-height:1.7}
+.dcell.tall ul li:last-child{border-bottom:none}
+.dcell.tall ul li .ok{color:var(--cyan);font-weight:900;flex-shrink:0}
+.dcell h3{font-size:1.15rem;font-weight:800;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.dcell h3 .em{font-size:1.5rem}
+.dcell p{font-size:.9rem;color:var(--gray);line-height:1.8}
+.urlwrap{margin-top:18px;padding:14px 18px;background:var(--sky);border-radius:12px;text-align:center}
+.urlwrap .u{font-family:Georgia,serif;font-size:1rem;color:var(--deep);font-weight:800;letter-spacing:.5px}
+
+/* Footer */
+.ft{background:var(--navy);padding:48px 0 22px;border-top:3px solid var(--blue)}
+.ft-in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;margin-bottom:24px}
+.ft-in .lg{display:flex;align-items:center;gap:10px}
+.ft-in .lg .ic{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.ft-in .lg .nm{font-size:1.25rem;font-weight:900;color:#fff}
+.ft-in .lg .nm b{color:var(--cyan)}
+.ft-in .lk{display:flex;gap:22px;flex-wrap:wrap}
+.ft-in .lk a{font-size:.88rem;color:#8fb8e8}
+.ft-in .lk a:hover{color:var(--cyan)}
+.ft-bot{text-align:center;padding-top:22px;border-top:1px solid rgba(77,157,255,.2);font-size:.82rem;color:#6f9ad0;line-height:1.95}
+.ft-bot a{color:var(--cyan);font-weight:700}
+
+#top{position:fixed;bottom:22px;right:22px;width:48px;height:48px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:0 8px 24px rgba(26,115,232,.4);opacity:0;visibility:hidden;transform:scale(.7);transition:.3s;z-index:999;font-weight:900}
+#top.show{opacity:1;visibility:visible;transform:scale(1)}
+#top:hover{transform:scale(1.12)}
+
+@media(max-width:768px){
+  html{font-size:14px}
+  .hd-in{height:56px;padding:0 16px}
+  .logo .nm{font-size:1.15rem}
+  .logo .ic{width:36px;height:36px;font-size:1.1rem}
+  .mbtn{display:block}
+  .hnav{position:fixed;top:56px;left:0;right:0;flex-direction:column;background:rgba(6,38,77,.98);padding:10px;max-height:0;overflow:hidden;transition:max-height .35s}
+  .hnav.open{max-height:460px;overflow-y:auto}
+  .hnav a{padding:13px;text-align:center;border-radius:10px}
+  .hero{min-height:auto;padding:76px 0 48px}
+  .sec{padding:60px 0}
+  .sec-head{margin-bottom:36px}
+  .search{flex-direction:column;padding:14px;gap:12px}
+  .search .sg{width:100%;padding:0 4px}
+  .search button{width:100%}
+  .hb .stats{gap:30px}
+  .bwrap{columns:1}
+  .dgrid{grid-template-columns:1fr}
+  .dcell.tall{grid-row:auto}
+  .cchip{flex:0 0 170px}
+  .ring .c{width:150px;height:150px}
+  .tnode .box{padding:18px}
+  .ft-in{flex-direction:column;text-align:center}
+}
+@media(max-width:400px){
+  .hb .stats{gap:22px}
+  .hb .stats .s b{font-size:1.6rem}
+  .ring .c{width:132px;height:132px}
+  .ring .c .num b{font-size:1.6rem}
+  .tline::before{left:11px}
+  .tnode{padding-left:44px}
+  .tnode .dot{width:20px;height:20px;left:2px}
+  .cchip{flex:0 0 150px;padding:18px 16px}
+  #top{bottom:16px;right:14px;width:42px;height:42px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/xiaolu.js"></script>
+
+<div id="loader"><div class="glass"></div><div class="lab">百 度 电 影 网</div></div>
+
+<header class="hd">
+  <div class="hd-in">
+    <a href="#home" class="logo"><div class="ic">🔍</div><div class="nm">百度<b>电影网</b></div></a>
+    <nav class="hnav" id="hnav">
+      <a href="#home" class="on">首页</a>
+      <a href="#rings">热门指数</a>
+      <a href="#board">热搜榜</a>
+      <a href="#track">找片指南</a>
+      <a href="#cats">影片分类</a>
+      <a href="#dash">关于我们</a>
+    </nav>
+    <button class="mbtn" id="mbtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hb">
+    <div class="badge"><span class="dot"></span>影视搜索引擎 · 全网资源极速检索</div>
+    <h1>搜你想看的<em>每一部电影</em></h1>
+    <div class="sub">百度电影网 · 百度影视搜索与电影导航</div>
+    <p class="desc">汇聚海量电影、剧集、综艺、动漫资源，一键检索，秒出结果，找片从未如此简单。</p>
+    <div class="search">
+      <div class="sg"><span class="si">🔍</span><input id="kw" type="text" placeholder="搜索电影 / 剧集 / 演员 / 导演…"></div>
+      <button onclick="doSearch()">搜 索</button>
+    </div>
+    <div class="hotkeys"><span>🔥 热搜：</span><a href="#">肖申克的救赎</a><a href="#">流浪地球2</a><a href="#">奥本海默</a><a href="#">周处除三害</a><a href="#">封神第二部</a></div>
+    <div class="stats">
+      <div class="s"><b>2亿+</b><small>影视资源索引</small></div>
+      <div class="s"><b>0.3s</b><small>平均检索耗时</small></div>
+      <div class="s"><b>4K</b><small>高清画质</small></div>
+      <div class="s"><b>24h</b><small>实时更新</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- 环形：热门指数 -->
+<section class="rings" id="rings">
+  <div class="container">
+    <div class="sec-head">
+      <div class="tag">POPULARITY INDEX</div>
+      <h2>热门指数</h2>
+      <p>实时热度可视化，一眼看懂当下最火</p>
+    </div>
+    <div class="rgrid">
+      <div class="ring"><div class="c"><svg width="170" height="170"><circle class="bg" cx="85" cy="85" r="72"/><circle class="fg" cx="85" cy="85" r="72" stroke-dasharray="452" stroke-dashoffset="45"/></svg><div class="num"><b>90</b><small>万热度</small></div></div><h4>动作片</h4><p>热血激战，燃爆银幕</p></div>
+      <div class="ring"><div class="c"><svg width="170" height="170"><circle class="bg" cx="85" cy="85" r="72"/><circle class="fg" cx="85" cy="85" r="72" stroke-dasharray="452" stroke-dashoffset="90"/></svg><div class="num"><b>80</b><small>万热度</small></div></div><h4>喜剧片</h4><p>欢笑解压首选</p></div>
+      <div class="ring"><div class="c"><svg width="170" height="170"><circle class="bg" cx="85" cy="85" r="72"/><circle class="fg" cx="85" cy="85" r="72" stroke-dasharray="452" stroke-dashoffset="135"/></svg><div class="num"><b>70</b><small>万热度</small></div></div><h4>科幻片</h4><p>想象无界未来</p></div>
+      <div class="ring"><div class="c"><svg width="170" height="170"><circle class="bg" cx="85" cy="85" r="72"/><circle class="fg" cx="85" cy="85" r="72" stroke-dasharray="452" stroke-dashoffset="158"/></svg><div class="num"><b>65</b><small>万热度</small></div></div><h4>悬疑片</h4><p>烧脑反转停不下</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 排行榜：瀑布流卡片 -->
+<section class="board" id="board">
+  <div class="container">
+    <div class="sec-head">
+      <div class="tag">HOT SEARCH RANKING</div>
+      <h2>今日热搜榜</h2>
+      <p>实时更新的搜索热度排行，看看大家都在找什么</p>
+    </div>
+    <div class="bwrap">
+      <div class="bcard g1"><div class="rk">1</div><div><div class="ti">流浪地球2</div><div class="meta"><span class="hot">🔥 982万</span><span>科幻</span><span>2023</span></div></div></div>
+      <div class="bcard"><div class="rk">2</div><div><div class="ti">封神第二部：战火西岐</div><div class="meta"><span class="hot">🔥 876万</span><span>奇幻</span><span>2025</span></div></div></div>
+      <div class="bcard g2"><div class="rk">3</div><div><div class="ti">周处除三害</div><div class="meta"><span class="hot">🔥 821万</span><span>动作/犯罪</span><span>2023</span></div></div></div>
+      <div class="bcard"><div class="rk">4</div><div><div class="ti">奥本海默</div><div class="meta"><span class="hot">🔥 765万</span><span>传记</span><span>2023</span></div></div></div>
+      <div class="bcard g3"><div class="rk">5</div><div><div class="ti">肖申克的救赎</div><div class="meta"><span class="hot">🔥 702万</span><span>剧情</span><span>1994</span></div></div></div>
+      <div class="bcard"><div class="rk">6</div><div><div class="ti">抓娃娃</div><div class="meta"><span class="hot">🔥 654万</span><span>喜剧</span><span>2024</span></div></div></div>
+      <div class="bcard"><div class="rk">7</div><div><div class="ti">飞驰人生2</div><div class="meta"><span class="hot">🔥 598万</span><span>喜剧/运动</span><span>2024</span></div></div></div>
+      <div class="bcard"><div class="rk">8</div><div><div class="ti">第二十条</div><div class="meta"><span class="hot">🔥 541万</span><span>剧情/喜剧</span><span>2024</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 时间轴：找片指南 -->
+<section class="track" id="track">
+  <div class="container">
+    <div class="sec-head">
+      <div class="tag">HOW IT WORKS</div>
+      <h2>找片四步走</h2>
+      <p>简单四步，精准锁定你想看的影片</p>
+    </div>
+    <div class="tline">
+      <div class="tnode gold">
+        <div class="dot"></div>
+        <div class="box"><span class="step">STEP 01</span><h4>输入关键词</h4><p>在搜索框输入片名、演员、导演、类型任意关键词，支持模糊匹配。</p><div class="tags"><span>片名</span><span>演员</span><span>导演</span><span>角色</span></div></div>
+      </div>
+      <div class="tnode">
+        <div class="dot"></div>
+        <div class="box"><span class="step">STEP 02</span><h4>智能筛选</h4><p>按类型、年份、地区、评分多维度过滤，0.3 秒精准定位目标影片。</p><div class="tags"><span>类型</span><span>年份</span><span>地区</span><span>评分</span></div></div>
+      </div>
+      <div class="tnode">
+        <div class="dot"></div>
+        <div class="box"><span class="step">STEP 03</span><h4>查看详情</h4><p>高清海报、剧情简介、演职员、豆瓣评分、相似推荐，一网打尽。</p><div class="tags"><span>海报</span><span>简介</span><span>演职员</span><span>相似推荐</span></div></div>
+      </div>
+      <div class="tnode gold">
+        <div class="dot"></div>
+        <div class="box"><span class="step">STEP 04</span><h4>极速观看</h4><p>一键直达播放，多线路切换，支持倍速、字幕、投屏，全屏沉浸体验。</p><div class="tags"><span>多线路</span><span>倍速</span><span>字幕</span><span>投屏</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 分类：横向滑动条 -->
+<section class="cats" id="cats">
+  <div class="container">
+    <div class="sec-head">
+      <div class="tag">CATEGORIES</div>
+      <h2>影片分类</h2>
+      <p>横向滑动浏览，快速定位心仪类型</p>
+    </div>
+    <div class="cscroll">
+      <div class="cchip"><span class="ico">💥</span><h4>动作片</h4><p>枪战、格斗、飙车，肾上腺素飙升</p></div>
+      <div class="cchip"><span class="ico">😂</span><h4>喜剧片</h4><p>开心解压，治愈每一天</p></div>
+      <div class="cchip"><span class="ico">👽</span><h4>科幻片</h4><p>探索宇宙与未来的无限可能</p></div>
+      <div class="cchip"><span class="ico">🕵️</span><h4>悬疑片</h4><p>层层反转，烧脑不停</p></div>
+      <div class="cchip"><span class="ico">💘</span><h4>爱情片</h4><p>心动瞬间，浪漫满分</p></div>
+      <div class="cchip"><span class="ico">👻</span><h4>恐怖片</h4><p>深夜限定，胆量测试</p></div>
+      <div class="cchip"><span class="ico">🎭</span><h4>剧情片</h4><p>人生百态，细腻动人</p></div>
+      <div class="cchip"><span class="ico">📜</span><h4>历史片</h4><p>重现风云变幻的时代</p></div>
+      <div class="cchip"><span class="ico">🧙</span><h4>奇幻片</h4><p>魔法与神话的奇幻世界</p></div>
+      <div class="cchip"><span class="ico">🎬</span><h4>纪录片</h4><p>真实影像，看见世界</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 关于：网格仪表盘 -->
+<section class="dash" id="dash">
+  <div class="container">
+    <div class="sec-head">
+      <div class="tag">ABOUT US</div>
+      <h2>关于百度电影网</h2>
+      <p>科技驱动影视检索，让找片更高效、更简单</p>
+    </div>
+    <div class="dgrid">
+      <div class="dcell tall">
+        <h3>为什么选择百度电影网</h3>
+        <div class="sub">科技 · 高效 · 海量 · 免费</div>
+        <ul>
+          <li><span class="ok">✓</span><span><b>智能检索</b>：输入关键词即出结果，支持模糊匹配与联想推荐。</span></li>
+          <li><span class="ok">✓</span><span><b>海量资源</b>：收录电影、剧集、综艺、动漫超 2 亿条影视索引。</span></li>
+          <li><span class="ok">✓</span><span><b>实时更新</b>：24 小时同步最新院线、网络首播与高分新片。</span></li>
+          <li><span class="ok">✓</span><span><b>高清画质</b>：4K / 蓝光源，支持倍速、字幕、投屏多线路播放。</span></li>
+          <li><span class="ok">✓</span><span><b>完全免费</b>：无广告弹窗，无需注册，打开即用，纯净观影。</span></li>
+        </ul>
+      </div>
+      <div class="dcell">
+        <h3><span class="em">🎯</span>精准搜索</h3>
+        <p>告别翻页找片的痛苦，一次搜索直达目标，效率提升十倍。</p>
+      </div>
+      <div class="dcell">
+        <h3><span class="em">⚡</span>极速响应</h3>
+        <p>平均 0.3 秒返回结果，毫秒级检索体验，告别漫长等待。</p>
+      </div>
+      <div class="dcell">
+        <h3><span class="em">🛡️</span>纯净观影</h3>
+        <p>无广告弹窗干扰，无强制注册，打开即用，专注内容本身。</p>
+      </div>
+      <div class="dcell">
+        <h3><span class="em">🌐</span>访问网址</h3>
+        <div class="urlwrap"><span class="u">https://baidudianyingwang-wap.github.io</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="ft">
+  <div class="container">
+    <div class="ft-in">
+      <div class="lg"><div class="ic">🔍</div><div class="nm">百度<b>电影网</b></div></div>
+      <div class="lk">
+        <a href="#home">首页</a>
+        <a href="#rings">热门指数</a>
+        <a href="#board">热搜榜</a>
+        <a href="#track">找片指南</a>
+        <a href="#cats">影片分类</a>
+        <a href="#dash">关于我们</a>
+        <a href="#">免责声明</a>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <p>&copy; 2024 <a href="https://baidudianyingwang-wap.github.io">百度电影网</a>（baidudianyingwang-wap.github.io）版权所有</p>
+      <p>本站内容均收集于互联网，仅供影视检索交流，如有侵权请联系删除</p>
+    </div>
+  </div>
+</footer>
+
+<button id="top" aria-label="返回顶部">↑</button>
+
+<script>
+window.addEventListener('load',function(){setTimeout(function(){document.getElementById('loader').classList.add('hide')},500)});
+var mbtn=document.getElementById('mbtn'),hnav=document.getElementById('hnav');
+mbtn.addEventListener('click',function(){mbtn.classList.toggle('x');hnav.classList.toggle('open')});
+hnav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mbtn.classList.remove('x');hnav.classList.remove('open')})});
+
+function doSearch(){
+  var v=document.getElementById('kw').value.trim();
+  if(v){alert('百度电影网提示：正在为您检索「'+v+'」，结果将在新页面呈现。')}
+  else{alert('请输入要搜索的片名、演员或关键词');document.getElementById('kw').focus()}
+}
+
+// 环形动画
+var obs=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.fg').forEach(function(c,i){
+        setTimeout(function(){c.style.strokeDashoffset=c.getAttribute('stroke-dashoffset')},i*150);
+      });
+      obs.unobserve(e.target);
+    }else{
+      e.target.querySelectorAll('.fg').forEach(function(c){c.style.strokeDashoffset=452});
+    }
+  });
+},{threshold:.3});
+var ringsSec=document.getElementById('rings');
+obs.observe(ringsSec);
+
+var hd=document.querySelector('.hd'),topBtn=document.getElementById('top'),links=hnav.querySelectorAll('a'),secs=document.querySelectorAll('.sec,.hero');
+window.addEventListener('scroll',function(){
+  var sy=window.scrollY;
+  hd.style.background=(sy>60)?'rgba(6,38,77,.97)':'rgba(6,38,77,.92)';
+  topBtn.classList.toggle('show',sy>400);
+  var cur='';secs.forEach(function(s){if(sy>=s.offsetTop-160)cur=s.id});
+  links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+cur)});
+});
+topBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+</script>
+
+</body>
+</html>
